@@ -4,6 +4,12 @@ This repo provides for the implementation of the ECCV'22 paper:
 
 **CATRE: Iterative Point Clouds Alignment for Category-level Object Pose Refinement**
 
+## Overview
+
+<p align="center">
+<img src='assets/network.pdf' width='800'>
+<p>
+
 ## Dependencies
 
 See [INSTALL.md](./docs/INSTALL.md)
@@ -53,7 +59,7 @@ We fix a bug in the evaluation code of IOU, see \todo{link} for details.
 If you find this repo useful in your research, please consider citing:
 ```
 @InProceedings{liu_2022_catre,
-  title     = {CATRE: Iterative Point Clouds Alignment for Category-level Object Pose Refinement},
+  title     = {{CATRE:} Iterative Point Clouds Alignment for Category-level Object Pose Refinement},
   author    = {Liu, Xingyu and Wang, Gu and Li, Yi and Ji, Xiangyang},
   booktitle = {The European Conference on Computer Vision (ECCV)},
   month     = {August},
