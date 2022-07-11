@@ -1,0 +1,48 @@
+.DS_Store
+*.so.*
+*.tar.gz
+*.egg-info*
+
+*.ttf
+*.jpg
+*.png
+
+
+# compilation and distribution
+__pycache__
+_ext
+*.pyc
+*.so
+detectron2.egg-info/
+build/
+dist/
+
+
+# pytorch/python/numpy formats
+*.pth
+*.pkl
+*.npy
+*.engine
+*.onnx
+events.out.tfevents*
+
+# ipython/jupyter notebooks
+*.ipynb
+**/.ipynb_checkpoints/
+
+# Editor temporaries
+*.swn
+*.swo
+*.swp
+*~
+
+# Pycharm editor settings
+.idea
+
+# VSCode editor settings
+.vscode
+
+# project dirs
+/models
+
+#external/*
