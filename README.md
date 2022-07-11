@@ -50,10 +50,14 @@ python pose_data.py
 
 ## Training
 
-`./core/catre/train_catre.sh configs/catre/NOCS_REAL/aug05_kpsMS_r9d_catreDisR_shared_tspcl_convPerRot_scaleexp_120e.py <gpu_ids> (other args)`
+```
+./core/catre/train_catre.sh configs/catre/NOCS_REAL/aug05_kpsMS_r9d_catreDisR_shared_tspcl_convPerRot_scaleexp_120e.py <gpu_ids> (other args)
+```
 
 ## Testing
-`./core/catre/test_catre.sh configs/catre/NOCS_REAL/aug05_kpsMS_r9d_catreDisR_shared_tspcl_convPerRot_scaleexp_120e.py <gpu_ids> <ckpt_path> (other args)`
+```
+./core/catre/test_catre.sh configs/catre/NOCS_REAL/aug05_kpsMS_r9d_catreDisR_shared_tspcl_convPerRot_scaleexp_120e.py <gpu_ids> <ckpt_path> (other args)
+```
 
 ## Citation
 If you find this repo useful in your research, please consider citing:
