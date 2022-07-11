@@ -16,11 +16,11 @@ _ext
 detectron2.egg-info/
 build/
 dist/
-
+.cache/
 
 # pytorch/python/numpy formats
 *.pth
-*.pkl
+#*.pkl
 *.npy
 *.engine
 *.onnx
