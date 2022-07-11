@@ -17,7 +17,7 @@ datasets/
     ├──REAL
         ├── real_test  # download from http://download.cs.stanford.edu/orion/nocs/real_test.zip
         ├── real_train # download from  http://download.cs.stanford.edu/orion/nocs/real_train.zip
-        └── image_set  # we provide
+        └── image_set  # generate from pose_data.py 
     ├──gts             # download from http://download.cs.stanford.edu/orion/nocs/gts.zip
         └── real_test
     ├──test_init_poses # we provide 
