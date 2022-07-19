@@ -7,9 +7,8 @@ This repo provides for the implementation of the ECCV'22 paper:
 
 ## Overview
 
-<p align="center">
-<img src='assets/network.png' width='800'>
-<p>
+![<img src='assets/network.png' width='800'/>](assets/network.png)
+
 
 ## Dependencies
 
