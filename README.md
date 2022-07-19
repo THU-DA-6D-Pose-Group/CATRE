@@ -7,7 +7,7 @@ This repo provides for the implementation of the ECCV'22 paper:
 
 ## Overview
 
-![<img src='assets/network.png' width='800'/>](assets/network.png)
+![<img src='https://github.com/THU-DA-6D-Pose-Group/CATRE/blob/main/assets/network.png' width='800'/>](assets/network.png)
 
 
 ## Dependencies
