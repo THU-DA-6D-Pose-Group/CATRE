@@ -345,11 +345,11 @@ def annotate_real_train(data_dir):
     intrinsics = np.array([[591.0125, 0, 322.525], [0, 590.16775, 244.11084], [0, 0, 1]])
     # scale factors for all instances
     scale_factors = {}
-    path_to_size = glob.glob(os.path.join(data_dir, "obj_models/real_train", "*_norm.txt"))
-    for inst_path in sorted(path_to_size):
-        instance = os.path.basename(inst_path).split(".")[0]
-        bbox_dims = np.loadtxt(inst_path)
-        scale_factors[instance] = np.linalg.norm(bbox_dims)
+    scale_dicts = np.load(os.path.join(data_dir, "obj_models/abs_scale.pkl"),allow_pickle=True)
+    for inst_name, scale in scale_dicts.item():
+        nocs_scale = np.linalg.norm(scale)
+        scale_factors[inst_name] = nocs_scale
+
     # meta info for re-label mug category
     with open(os.path.join(data_dir, "obj_models/mug_meta.pkl"), "rb") as f:
         mug_meta = cPickle.load(f)
@@ -425,7 +425,7 @@ def annotate_test_data(data_dir):
     #   val        3792 imgs        132 imgs         1856 (23) imgs      50 insts
     #   test       0 img            0 img            0 img               2 insts
 
-    real_test = open(os.path.join(data_dir, "REAL", "test_list.txt")).read().splitlines()
+    real_test = open(os.path.join(data_dir, "REAL/image_set", "test_list.txt")).read().splitlines()
     real_intrinsics = np.array([[591.0125, 0, 322.525], [0, 590.16775, 244.11084], [0, 0, 1]])
     # compute model size
     model_file_path = ["obj_models/real_test_spd.pkl"]
