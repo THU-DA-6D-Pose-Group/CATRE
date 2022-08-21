@@ -284,7 +284,7 @@ def load_depth(img_path):
 
 def annotate_camera_train(data_dir):
     """Generate gt labels for CAMERA train data."""
-    camera_train = open(os.path.join(data_dir, "CAMERA", "train_list_all.txt")).read().splitlines()
+    camera_train = open(os.path.join(data_dir, "CAMERA", "train_list.txt")).read().splitlines()
     intrinsics = np.array([[577.5, 0, 319.5], [0, 577.5, 239.5], [0, 0, 1]])
     # meta info for re-label mug category
     with open(os.path.join(data_dir, "obj_models/mug_meta.pkl"), "rb") as f:
@@ -341,7 +341,7 @@ def annotate_camera_train(data_dir):
 
 def annotate_real_train(data_dir):
     """Generate gt labels for Real train data through PnP."""
-    real_train = open(os.path.join(data_dir, "REAL/image_set/train_list_all.txt")).read().splitlines()
+    real_train = open(os.path.join(data_dir, "REAL/image_set/train_list.txt")).read().splitlines()
     intrinsics = np.array([[591.0125, 0, 322.525], [0, 590.16775, 244.11084], [0, 0, 1]])
     # scale factors for all instances
     scale_factors = {}
@@ -425,7 +425,7 @@ def annotate_test_data(data_dir):
     #   val        3792 imgs        132 imgs         1856 (23) imgs      50 insts
     #   test       0 img            0 img            0 img               2 insts
 
-    real_test = open(os.path.join(data_dir, "REAL", "test_list_all.txt")).read().splitlines()
+    real_test = open(os.path.join(data_dir, "REAL", "test_list.txt")).read().splitlines()
     real_intrinsics = np.array([[591.0125, 0, 322.525], [0, 590.16775, 244.11084], [0, 0, 1]])
     # compute model size
     model_file_path = ["obj_models/real_test_spd.pkl"]
