@@ -428,7 +428,7 @@ def annotate_test_data(data_dir):
     real_test = open(os.path.join(data_dir, "REAL", "test_list_all.txt")).read().splitlines()
     real_intrinsics = np.array([[591.0125, 0, 322.525], [0, 590.16775, 244.11084], [0, 0, 1]])
     # compute model size
-    model_file_path = ["obj_models/real_test.pkl"]
+    model_file_path = ["obj_models/real_test_spd.pkl"]
     models = {}
     for path in model_file_path:
         with open(os.path.join(data_dir, path), "rb") as f:
