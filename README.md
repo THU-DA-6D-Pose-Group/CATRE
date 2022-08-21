@@ -1,6 +1,6 @@
 # CATRE
 
-This repo provides for the implementation of the ECCV'22 paper:
+This repo provides for the implementation of the ECCV'22 paper: 
 
 **CATRE: Iterative Point Clouds Alignment for Category-level Object Pose Refinement**
 

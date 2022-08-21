@@ -161,13 +161,12 @@ def estimateSimilarityTransform(source: np.array, target: np.array, verbose=Fals
     return Scale, Rotation, Translation, OutTransform
 
 
-
 def create_img_list(data_dir):
     """ Create train/val/test data list for Real. """
     # Real dataset
     for subset in ['train', 'test']:
         img_list = []
-        img_dir = os.path.join(data_dir, 'REAL', subset)
+        img_dir = os.path.join(data_dir, 'REAL', f"real_{subset}")
         folder_list = [name for name in sorted(os.listdir(img_dir)) if os.path.isdir(os.path.join(img_dir, name))]
         for folder in folder_list:
             img_paths = glob.glob(os.path.join(img_dir, folder, '*_color.png'))
@@ -177,7 +176,7 @@ def create_img_list(data_dir):
                 img_ind = img_name.split('_')[0]
                 img_path = os.path.join(subset, folder, img_ind)
                 img_list.append(img_path)
-        with open(os.path.join(data_dir, 'REAL', subset+'_list_all.txt'), 'w') as f:
+        with open(os.path.join(data_dir, 'REAL', subset+'_list.txt'), 'w') as f:
             for img_path in img_list:
                 f.write("%s\n" % img_path)
     print('Write all data paths to file done!')
