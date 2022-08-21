@@ -35,7 +35,7 @@ Run python scripts to prepare the datasets. (Modified from https://github.com/me
 # NOTE: this code will directly modify the data
 cd $ROOT/preprocess
 python shape_data.py
-python pose_data.py
+python pose_dataset.py
 ```
 
 ## Reproduce the results

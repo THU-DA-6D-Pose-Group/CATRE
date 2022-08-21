@@ -13,7 +13,7 @@ import numpy as np
 import _pickle as cPickle
 from tqdm import tqdm
 import time
-
+import mmcv
 
 def align_nocs_to_depth(masks, coords, depth, intrinsics, instance_ids, img_path, verbose=False):
     num_instances = len(instance_ids)
@@ -180,7 +180,8 @@ def create_img_list(data_dir):
                 img_ind = img_name.split("_")[0]
                 img_path = os.path.join(f"real_{subset}", folder, img_ind)
                 img_list.append(img_path)
-        with open(os.path.join(data_dir, "REAL", subset + "_list.txt"), "w") as f:
+        mmcv.mkdir_or_exist(os.path.join(data_dir, "REAL/image_set"))
+        with open(os.path.join(data_dir, "REAL/image_set", f"{subset}_list.txt"), "w") as f:
             for img_path in img_list:
                 f.write("%s\n" % img_path)
     print("Write all data paths to file done!")
