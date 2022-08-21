@@ -56,7 +56,7 @@ def flow2rgb(flow, color_wheel=None, unknown_thr=1e6):
     dx[ignore_inds] = 0
     dy[ignore_inds] = 0
 
-    rad = np.sqrt(dx ** 2 + dy ** 2)
+    rad = np.sqrt(dx**2 + dy**2)
     if np.any(rad > np.finfo(float).eps):
         max_rad = np.max(rad)
         dx /= max_rad
@@ -64,7 +64,7 @@ def flow2rgb(flow, color_wheel=None, unknown_thr=1e6):
 
     [h, w] = dx.shape
 
-    rad = np.sqrt(dx ** 2 + dy ** 2)
+    rad = np.sqrt(dx**2 + dy**2)
     angle = np.arctan2(-dy, -dx) / np.pi
 
     bin_real = (angle + 1) / 2 * (num_bins - 1)

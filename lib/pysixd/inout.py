@@ -131,7 +131,7 @@ def save_json(path, content, sort=False):
 # Set representation of the floating point numbers in YAML files
 def float_representer(dumper, value):
     text = "{0:.8f}".format(value)
-    return dumper.represent_scalar(u"tag:yaml.org,2002:float", text)
+    return dumper.represent_scalar("tag:yaml.org,2002:float", text)
 
 
 yaml.add_representer(float, float_representer)

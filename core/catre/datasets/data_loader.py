@@ -23,7 +23,12 @@ from core.utils.dataset_utils import (
     trivial_batch_collator,
 )
 from core.utils.pose_aug import aug_poses_normal_np, aug_scale_normal_np
-from core.utils.cat_data_utils import load_depth, crop_ball_from_depth_image, crop_mask_depth_image, occlude_obj_by_bboxes
+from core.utils.cat_data_utils import (
+    load_depth,
+    crop_ball_from_depth_image,
+    crop_mask_depth_image,
+    occlude_obj_by_bboxes,
+)
 from core.utils.pose_utils import rot_from_axangle_chain
 from core.utils.my_distributed_sampler import InferenceSampler, RepeatFactorTrainingSampler, TrainingSampler
 from core.utils.ssd_color_transform import ColorAugSSDTransform
@@ -320,7 +325,7 @@ class CATRE_DatasetFromList(Base_DatasetFromList):
             self._addr = np.asarray([len(x) for x in self._lst], dtype=np.int64)
             self._addr = np.cumsum(self._addr)
             self._lst = np.concatenate(self._lst)
-            logger.info("Serialized dataset takes {:.2f} MiB".format(len(self._lst) / 1024 ** 2))
+            logger.info("Serialized dataset takes {:.2f} MiB".format(len(self._lst) / 1024**2))
 
     def __len__(self):
         if self._serialize:
@@ -358,7 +363,7 @@ class CATRE_DatasetFromList(Base_DatasetFromList):
         objs = dset_meta.objs
         ref_key = dset_meta.ref_key
         data_ref = ref.__dict__[ref_key]
-        
+
         mean_scale_dict = data_ref.mean_scale
 
         self.mean_scales = []
@@ -386,7 +391,9 @@ class CATRE_DatasetFromList(Base_DatasetFromList):
 
         sym_axis_info = data_ref.get_sym_info(obj_name, mug_handle)
         if sym_axis_info is not None:
-            sym_transforms = misc.get_axis_symmetry_transformations(sym_axis_info, max_sym_disc_step=self.cfg.INPUT.MAX_SYM_DISC_STEP)
+            sym_transforms = misc.get_axis_symmetry_transformations(
+                sym_axis_info, max_sym_disc_step=self.cfg.INPUT.MAX_SYM_DISC_STEP
+            )
             sym_info = np.array([sym["R"] for sym in sym_transforms], dtype=np.float32)
         else:
             return None, obj_name
@@ -420,16 +427,16 @@ class CATRE_DatasetFromList(Base_DatasetFromList):
             raise RuntimeError("cam intrinsic is missing")
 
         # load mug meta information =============================================
-        self._get_mug_meta(dataset_name) 
+        self._get_mug_meta(dataset_name)
         self._get_mean_scale(dataset_name)
 
         # load nocs(coordinate) =================================================
         coord_path = dataset_dict["coord_file"]
-        coord = mmcv.imread(coord_path)[:, :, :3] # 0 - 255
+        coord = mmcv.imread(coord_path)[:, :, :3]  # 0 - 255
         coord = coord[:, :, (2, 1, 0)]
         coord = np.array(coord, dtype=np.float32) / 255
         coord[:, :, 2] = 1 - coord[:, :, 2]
-        coord = coord - 0.5 # [0, 1] -> [-0.5, 0.5]
+        coord = coord - 0.5  # [0, 1] -> [-0.5, 0.5]
         coord = torch.from_numpy(coord)
 
         # load depth =================================================
@@ -587,9 +594,11 @@ class CATRE_DatasetFromList(Base_DatasetFromList):
                         device="cpu",
                         fps_sample=input_cfg.FPS_SAMPLE,
                     )
-                else: # sample randomly in mask
-                    rgb, pcl, nocs = crop_mask_depth_image(image_th, depth_bp, mask, coord=coord, num_points=input_cfg.NUM_PCL)
-                
+                else:  # sample randomly in mask
+                    rgb, pcl, nocs = crop_mask_depth_image(
+                        image_th, depth_bp, mask, coord=coord, num_points=input_cfg.NUM_PCL
+                    )
+
                 rgb_list.append(rgb.to(torch.float32).contiguous())
                 pcl_list.append(pcl.to(torch.float32).contiguous())
 
@@ -597,9 +606,9 @@ class CATRE_DatasetFromList(Base_DatasetFromList):
                 if dset_meta.objs[cat_id] == "mug":
                     t0 = self.mug_meta[inst_name][0].astype(np.float32)
                     s0 = self.mug_meta[inst_name][1].astype(np.float32)
-                    nocs = s0 * (nocs + t0) # nocs shape [num_p, 3]
+                    nocs = s0 * (nocs + t0)  # nocs shape [num_p, 3]
 
-                nocs_list.append(nocs.to(torch.float32).T.contiguous()) # [3, num_p]
+                nocs_list.append(nocs.to(torch.float32).T.contiguous())  # [3, num_p]
 
             instances.rgb = torch.stack(rgb_list, dim=0)
             instances.pcl = torch.stack(pcl_list, dim=0)
@@ -773,18 +782,18 @@ class CATRE_DatasetFromList(Base_DatasetFromList):
                 mask, occlude_ratio = occlude_obj_by_bboxes(bbox, mask)
             if input_cfg.SAMPLE_DEPTH_FROM_BALL:
                 rgb, pcl, _ = crop_ball_from_depth_image(
-                        image_th,
-                        depth_bp,
-                        mask,
-                        pose,
-                        scale,
-                        ratio=input_cfg.DEPTH_SAMPLE_BALL_RATIO,
-                        cam_intrinsics=torch.from_numpy(K),
-                        num_points=input_cfg.NUM_PCL,
-                        device="cpu",
-                        fps_sample=input_cfg.FPS_SAMPLE,
-                    )
-            else: # sample randomly in mask
+                    image_th,
+                    depth_bp,
+                    mask,
+                    pose,
+                    scale,
+                    ratio=input_cfg.DEPTH_SAMPLE_BALL_RATIO,
+                    cam_intrinsics=torch.from_numpy(K),
+                    num_points=input_cfg.NUM_PCL,
+                    device="cpu",
+                    fps_sample=input_cfg.FPS_SAMPLE,
+                )
+            else:  # sample randomly in mask
                 rgb, pcl, _ = crop_mask_depth_image(image_th, depth_bp, mask, num_points=input_cfg.NUM_PCL)
 
             pcl_list.append(pcl.to(torch.float32).contiguous())
@@ -977,6 +986,7 @@ def build_catre_test_loader(cfg, dataset_name, train_objs=None):
         **kwargs,
     )
     return data_loader
+
 
 def get_test_bbox_initpose_key(cfg):
     # NOTE: we don't have bbox from pose_est in category-level estimation

@@ -275,7 +275,7 @@ def batch_dice_score(x, target, eps=1e-5):
     x = x.reshape(n_inst, -1)
     target = target.reshape(n_inst, -1)
     intersection = (x * target).sum(axis=1)
-    union = (x ** 2.0).sum(axis=1) + (target ** 2.0).sum(axis=1) + eps
+    union = (x**2.0).sum(axis=1) + (target**2.0).sum(axis=1) + eps
     dice_ = 2 * intersection / union
     return dice_
 

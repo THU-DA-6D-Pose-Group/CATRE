@@ -36,7 +36,7 @@ def grid_show(ims, titles=None, suptitle=None, row=1, col=3, dpi=200, save_path=
         col = int(np.ceil(len(ims) / row))
     if titles is not None:
         assert len(ims) == len(titles), "{} != {}".format(len(ims), len(titles))
-    plt.close('all')
+    plt.close("all")
     fig = plt.figure(dpi=dpi, figsize=plt.figaspect(row / float(col)))
     k = 0
     for i in range(row):
@@ -60,7 +60,7 @@ def grid_show(ims, titles=None, suptitle=None, row=1, col=3, dpi=200, save_path=
 
     if suptitle is not None:
         fig.suptitle(suptitle)
-        
+
     # plt.tight_layout()
     if show:
         plt.show()

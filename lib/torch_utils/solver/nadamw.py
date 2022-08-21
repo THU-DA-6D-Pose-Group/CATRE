@@ -106,8 +106,8 @@ class NAdamW(Optimizer):
 
                 state["step"] += 1
                 step = state["step"]
-                bias_correction1 = 1 - beta1 ** step
-                bias_correction2 = 1 - beta2 ** step
+                bias_correction1 = 1 - beta1**step
+                bias_correction2 = 1 - beta2**step
 
                 # calculate the momentum cache \mu^{t} and \mu^{t+1}
                 mu = beta1 * (1.0 - 0.5 * (0.96 ** (step * momentum_decay)))

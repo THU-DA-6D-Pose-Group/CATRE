@@ -564,8 +564,8 @@ class Ranger21(TO.Optimizer):
                                 state["grad_ma"],
                             )
 
-                    bias_correction1 = 1 - beta1 ** step
-                    bias_correction2 = 1 - beta2 ** step
+                    bias_correction1 = 1 - beta1**step
+                    bias_correction2 = 1 - beta2**step
 
                     if self.momentum_pnm:
                         # Maintains the maximum of all 2nd moment running avg. till now
@@ -583,9 +583,9 @@ class Ranger21(TO.Optimizer):
                         grad = normalize_gradient(grad)
 
                     if not self.use_adabelief:
-                        grad_ma.mul_(beta1 ** 2).add_(grad, alpha=1 - beta1 ** 2)
+                        grad_ma.mul_(beta1**2).add_(grad, alpha=1 - beta1**2)
 
-                    noise_norm = math.sqrt((1 + beta2) ** 2 + beta2 ** 2)
+                    noise_norm = math.sqrt((1 + beta2) ** 2 + beta2**2)
 
                     step_size = lr / bias_correction1
 

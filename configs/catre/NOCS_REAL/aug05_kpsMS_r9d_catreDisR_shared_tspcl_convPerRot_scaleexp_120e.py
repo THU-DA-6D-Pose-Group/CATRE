@@ -1,4 +1,3 @@
-
 _base_ = ["../../_base_/catre_base.py"]
 
 # fix mug mean shape
@@ -10,8 +9,16 @@ INPUT = dict(
     BBOX_TYPE_TEST="est",  # from_pose | est | gt | gt_aug (TODO)
     INIT_POSE_TYPE_TRAIN=["gt_noise"],  # gt_noise | random | canonical
     NOISE_ROT_STD_TRAIN=(10, 5, 2.5, 1.25),  # randomly choose one
-    NOISE_TRANS_STD_TRAIN=[(0.02, 0.02, 0.02), (0.01, 0.01, 0.01), (0.005, 0.005, 0.005),],
-    NOISE_SCALE_STD_TRAIN=[(0.01, 0.01, 0.01), (0.005, 0.005, 0.005), (0.002, 0.002, 0.002),],
+    NOISE_TRANS_STD_TRAIN=[
+        (0.02, 0.02, 0.02),
+        (0.01, 0.01, 0.01),
+        (0.005, 0.005, 0.005),
+    ],
+    NOISE_SCALE_STD_TRAIN=[
+        (0.01, 0.01, 0.01),
+        (0.005, 0.005, 0.005),
+        (0.002, 0.002, 0.002),
+    ],
     INIT_POSE_TYPE_TEST="est",  # gt_noise | est | canonical
     KPS_TYPE="mean_shape",  # bbox_from_scale | mean_shape |fps (abla)
     WITH_DEPTH=True,
@@ -85,7 +92,7 @@ MODEL = dict(
                 norm="GN",  # BN | GN | none
                 num_gn_groups=32,
                 act="gelu",  # relu | lrelu | silu (swish) | gelu | mish
-                num_points=1024+1024,
+                num_points=1024 + 1024,
                 rot_dim=3,  # ego_rot6d
                 norm_input=False,
             ),
@@ -96,7 +103,7 @@ MODEL = dict(
             WITH_INIT_SCALE=True,
             INIT_CFG=dict(
                 type="FC_TransSizeHead",
-                in_dim=1088+3,
+                in_dim=1088 + 3,
                 num_layers=2,
                 feat_dim=256,
                 norm="GN",  # BN | GN | none

@@ -221,8 +221,8 @@ MODEL = dict(
         ),
         TS_HEAD=dict(
             WITH_KPS_FEATURE=True,
-            WITH_INIT_SCALE=False, # use scale as explicit input
-            WITH_INIT_TRANS=False, # use scale as explicit input
+            WITH_INIT_SCALE=False,  # use scale as explicit input
+            WITH_INIT_TRANS=False,  # use scale as explicit input
             FREEZE=False,
             INIT_CFG=dict(
                 type="ConvOutTransSizeHead",
@@ -241,7 +241,7 @@ MODEL = dict(
             PM_DISENTANGLE_T=False,  # disentangle R/T
             PM_DISENTANGLE_Z=False,  # disentangle R/xy/z
             PM_T_USE_POINTS=True,  # only used for disentangled loss
-            PM_USE_BBOX=False, # if true, the points is bbox
+            PM_USE_BBOX=False,  # if true, the points is bbox
             PM_LW=1.0,
             # rot loss ----------------------------------
             ROT_LOSS_TYPE="angular",  # angular | L2
@@ -256,7 +256,7 @@ MODEL = dict(
             SCALE_LOSS_TYPE="L1",
             SCALE_LW=0.0,
             # nocs loss ----------------------------------
-            NOCS_LOSS_TYPE="L1", # only support l1 for now
+            NOCS_LOSS_TYPE="L1",  # only support l1 for now
             NOCS_LW=0.0,
             SYM_NOCS_TYPE="YAXIS",  # YAXIS | CAPTRA | SYMROTATE
             NOCS_SYM_AWARE=True,

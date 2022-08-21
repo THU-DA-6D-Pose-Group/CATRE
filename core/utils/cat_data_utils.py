@@ -20,23 +20,23 @@ def occlude_obj_by_bboxes(bbox, mask):
         occlude_mask = mask.clone()
         if a == 0:
             # mask right down area
-            top_x = int(x1 * 0.75 + x2  * 0.25)
-            top_y = int(y1 * 0.75 + y2  * 0.25)
+            top_x = int(x1 * 0.75 + x2 * 0.25)
+            top_y = int(y1 * 0.75 + y2 * 0.25)
             occlude_mask[top_x:x2, top_y:y2] = 0
         elif a == 1:
             # mask left down area
-            end_x = int(x1 * 0.25 + x2  * 0.75)
-            top_y = int(y1 * 0.75 + y2  * 0.25)
+            end_x = int(x1 * 0.25 + x2 * 0.75)
+            top_y = int(y1 * 0.75 + y2 * 0.25)
             occlude_mask[x1:end_x, top_y:y2] = 0
-        elif a ==2:
+        elif a == 2:
             # mask left up area
-            end_x = int(x1 * 0.25 + x2  * 0.75)
-            end_y = int(y1 * 0.25 + y2  * 0.75)
+            end_x = int(x1 * 0.25 + x2 * 0.75)
+            end_y = int(y1 * 0.25 + y2 * 0.75)
             occlude_mask[x1:end_x, y1:end_y] = 0
-        elif a ==3:
+        elif a == 3:
             # mask right up area
-            top_x = int(x1 * 0.75 + x2  * 0.25)
-            end_y = int(y1 * 0.25 + y2  * 0.75)
+            top_x = int(x1 * 0.75 + x2 * 0.25)
+            end_y = int(y1 * 0.25 + y2 * 0.75)
             occlude_mask[top_x:x2, y1:end_y] = 0
         else:
             raise NotImplementedError
@@ -46,6 +46,7 @@ def occlude_obj_by_bboxes(bbox, mask):
             break
 
     return occlude_mask, occlude_ratio
+
 
 def plot_xyz_axis(scales, Rs, ts, K, img, color_id=(1, 25, 50)):
     center_2d = [project(t, K) for t in ts]
@@ -145,7 +146,7 @@ def pairwise_distance(A, B):
         C: n x m numpy array
     """
     diff = A[:, :, None] - B[:, :, None].T
-    C = np.sqrt(np.sum(diff ** 2, axis=1))
+    C = np.sqrt(np.sum(diff**2, axis=1))
 
     return C
 
@@ -215,7 +216,7 @@ def sample_bp_depth(image, depth, coord, mask=None):
     mask_flatten = final_instance_mask.flatten().nonzero()
     pts = depth.reshape(-1, 3)[mask_flatten].squeeze()
     rgb = image.reshape(-1, 3)[mask_flatten].squeeze()
-    
+
     if coord is not None:
         assert coord.shape[-1] == 3
         nocs = coord.reshape(-1, 3)[mask_flatten].squeeze()
@@ -314,7 +315,7 @@ def random_sample(xyz, npoint):
     # random sample
     idx = torch.randperm(len(xyz))[:npoint]
     while len(idx) < npoint:
-        idx_ap = random_sample(xyz, npoint-len(idx))
+        idx_ap = random_sample(xyz, npoint - len(idx))
         idx = torch.cat((idx, idx_ap), dim=0)
     return idx
 
@@ -356,7 +357,11 @@ def farthest_point_sample(xyz, npoint, device):
 
 
 def crop_mask_depth_image(
-    image, depth, mask, coord=None, num_points=None,
+    image,
+    depth,
+    mask,
+    coord=None,
+    num_points=None,
 ):
     assert depth.shape[-1] == 3
     raw_rgb, raw_pts, raw_nocs = sample_bp_depth(image, depth, coord, mask)
@@ -370,7 +375,6 @@ def crop_mask_depth_image(
         nocs = None
 
     return rgb, pts, nocs
-
 
 
 def crop_ball_from_depth_image(

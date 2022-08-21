@@ -219,7 +219,7 @@ def ensure_dir(path):
 
 def get_axis_symmetry_transformations(sym_axis_info, max_sym_disc_step):
     axis = np.array(sym_axis_info)
-    offset = np.zeros((3, 1)) 
+    offset = np.zeros((3, 1))
     discrete_steps_count = int(np.ceil(np.pi / max_sym_disc_step))
     discrete_step = 2.0 * np.pi / discrete_steps_count
 
@@ -331,20 +331,17 @@ def calc_xyz_bp_fast(depth, R, T, K):
     grid_x, grid_y = np.meshgrid(np.arange(width), np.arange(height))
     grid_2d = np.stack([grid_x, grid_y, np.ones((height, width))], axis=2)
     mask = (depth != 0).astype(depth.dtype)
-    ProjEmb = (
-        np.einsum(
+    ProjEmb = np.einsum(
+        "ijkl,ijlm->ijkm",
+        R.T.reshape(1, 1, 3, 3),
+        depth.reshape(height, width, 1, 1)
+        * np.einsum(
             "ijkl,ijlm->ijkm",
-            R.T.reshape(1, 1, 3, 3),
-            depth.reshape(height, width, 1, 1)
-            * np.einsum(
-                "ijkl,ijlm->ijkm",
-                Kinv.reshape(1, 1, 3, 3),
-                grid_2d.reshape(height, width, 3, 1),
-            )
-            - T.reshape(1, 1, 3, 1),
-        ).squeeze()
-        * mask.reshape(height, width, 1)
-    )
+            Kinv.reshape(1, 1, 3, 3),
+            grid_2d.reshape(height, width, 3, 1),
+        )
+        - T.reshape(1, 1, 3, 1),
+    ).squeeze() * mask.reshape(height, width, 1)
 
     return ProjEmb
 

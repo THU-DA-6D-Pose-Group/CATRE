@@ -60,7 +60,7 @@ if __name__ == "__main__":
             ):
                 # [sR -> R], normed_scale -> scale
                 R = pose[:3, :3]
-                nocs_scale = pow(np.linalg.det(R), 1/3)
+                nocs_scale = pow(np.linalg.det(R), 1 / 3)
                 abs_scale = scale * nocs_scale
                 pose[:3, :3] = R / nocs_scale
                 # mask2rle

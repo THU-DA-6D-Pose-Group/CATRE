@@ -33,7 +33,7 @@ def select_device(device="", apex=False, batch_size=None):
     cuda = False if cpu_request else torch.cuda.is_available()
     ng = len(device.split(","))  # torch.cuda.device_count()
     if cuda:
-        c = 1024 ** 2  # bytes to MB
+        c = 1024**2  # bytes to MB
 
         if ng > 1 and batch_size:  # check that batch_size is compatible with device_count
             assert batch_size % ng == 0, "batch-size %g not multiple of GPU count %g" % (batch_size, ng)
