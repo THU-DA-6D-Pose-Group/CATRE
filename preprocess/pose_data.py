@@ -1,5 +1,5 @@
 """
-Modified from 
+Modified from
 https://github.com/hughw19/NOCS_CVPR2019
 and
 https://github.com/mentian/object-deformnet/
@@ -178,7 +178,7 @@ def create_img_list(data_dir):
             for img_full_path in img_paths:
                 img_name = os.path.basename(img_full_path)
                 img_ind = img_name.split("_")[0]
-                img_path = os.path.join(subset, folder, img_ind)
+                img_path = os.path.join(f"real_{subset}", folder, img_ind)
                 img_list.append(img_path)
         with open(os.path.join(data_dir, "REAL", subset + "_list.txt"), "w") as f:
             for img_path in img_list:
