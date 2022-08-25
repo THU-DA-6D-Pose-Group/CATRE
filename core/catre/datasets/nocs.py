@@ -102,7 +102,7 @@ class NOCS_Dataset:
                 gt_dicts[split_scene_im_id] = gt_dict
 
         if "train_real" in self.name:
-            mug_handle_dict = mmcv.load(osp.join(image_root, "real_train/mug_handle.pkl"))
+            mug_handle_dict = mmcv.load(osp.join(self.dataset_root, "obj_models/mug_handle.pkl"))
         else:
             mug_handle_dict = None
 
