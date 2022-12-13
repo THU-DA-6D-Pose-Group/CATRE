@@ -462,10 +462,8 @@ def annotate_test_data(data_dir):
                 continue
             num_insts = len(instance_ids)
             # match each instance with NOCS ground truth to properly assign gt_handle_visibility
-            gt_dir = os.path.join(os.path.dirname(data_dir), "gts/real_test")
-            nocs_path = os.path.join(
-                gt_dir, "results_real_test_{}_{}.pkl".format(img_path.split("/")[-2], img_path.split("/")[-1])
-            )
+            nocs_dir = os.path.join(os.path.dirname(data_dir), 'results/nocs_results')
+            nocs_path = os.path.join(nocs_dir, 'real_test', 'results_test_{}_{}.pkl'.format(img_path.split('/')[-2], img_path.split('/')[-1]))
             with open(nocs_path, "rb") as f:
                 nocs = cPickle.load(f)
             gt_class_ids = nocs["gt_class_ids"]
