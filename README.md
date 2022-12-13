@@ -3,7 +3,7 @@
 This repo provides for the implementation of the ECCV'22 paper: 
 
 **CATRE: Iterative Point Clouds Alignment for Category-level Object Pose Refinement**<br>
-[[arXiv](https://arxiv.org/abs/2207.08082)]
+[[arXiv](https://arxiv.org/abs/2207.08082)][[Video](https://www.bilibili.com/video/BV1e8411e7Jt/?share_source=copy_web)]
 
 ## Overview
 
