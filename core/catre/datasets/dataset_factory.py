@@ -9,6 +9,7 @@ import ref
 from detectron2.data import DatasetCatalog, MetadataCatalog
 from core.catre.datasets import (
     nocs,
+    cmra,
 )
 
 cur_dir = osp.dirname(osp.abspath(__file__))
@@ -16,6 +17,7 @@ cur_dir = osp.dirname(osp.abspath(__file__))
 __all__ = ["register_dataset", "register_datasets", "register_datasets_in_cfg", "get_available_datasets"]
 _DSET_MOD_NAMES = [
     "nocs",
+    "cmra",
 ]
 
 logger = logging.getLogger(__name__)
